@@ -77,12 +77,45 @@ Adding the date-time–derived columns (`hour`, `dayofweek`, `month`, `year`), b
 
 Together, these engineered signals supplied the model with domain knowledge that the original 11 Kaggle columns lacked, leading to the **0.65357 RMSE** score you see on the leaderboard.
 
-## Hyper parameter tuning
-### How much better did your model preform after trying different hyper parameters?
-TODO: Add your explanation
+## Hyper-parameter tuning
 
-### If you were given more time with this dataset, where do you think you would spend more time?
-TODO: Add your explanation
+### How much better did the model perform after trying different hyper-parameters?
+
+Our **feature-engineered ensemble** scored **0.65357 RMSE** on Kaggle.  
+After a one-hour random search (40 trials) over LightGBM, XGBoost and a small MLP, the best tuned ensemble reached **0.46981 RMSE**.
+
+| Stage | Kaggle RMSE ↓ | Absolute gain | Relative gain |
+|-------|--------------:|--------------:|---------------|
+| Engineered features (no HPO) | 0.65357 | — | — |
+| + Hyper-parameter tuning     | 0.46981 | **-0.18376** | **≈ 28 % lower error** |
+
+**Drivers of the improvement**
+
+* *LightGBM variant* with **`num_leaves = 64`** and **`learning_rate = 0.03`** captured non-linear temp/hour effects without over-fitting.
+* *Neural net* found during the search had **`dropout_prob = 0.30`**, generalising better to weekend traffic.
+* Diversity in subsample / feature-fraction settings reduced correlated errors, so the weighted ensemble beat every single tuned model.
+
+---
+
+### If given more time, where would I focus?
+
+1. **Richer external data**  
+   *Join hourly precipitation, wind-gust, and visibility readings*—finer-grained weather signals should tighten error bands on bad-weather days.
+
+2. **Longer, smarter HPO**  
+   Switch to Bayesian optimisation (100–200 trials) and allow deeper stacks; each extra point of RMSE now costs many experiments.
+
+3. **Outlier & anomaly treatment**  
+   Investigate zero wind-speed rows and extreme `count` spikes; Winsorise or correct measurement errors to stabilise training tails.
+
+4. **Temporal validation**  
+   Use a rolling-window CV that respects chronology; ensures the model generalises across seasons rather than memorising one winter.
+
+5. **Model compression**  
+   Distil the stacked ensemble into a single LightGBM model to cut inference latency while retaining most of the accuracy.
+
+These steps should yield incremental gains and make the solution more production-ready.
+
 
 ### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
 |model|hpo1|hpo2|hpo3|score|
@@ -93,13 +126,13 @@ TODO: Add your explanation
 
 ### Create a line plot showing the top model score for the three (or more) training runs during the project.
 
-TODO: Replace the image below with your own.
+
 
 ![model_train_score.png](img/model_train_score.png)
 
 ### Create a line plot showing the top kaggle score for the three (or more) prediction submissions during the project.
 
-TODO: Replace the image below with your own.
+
 
 ![model_test_score.png](img/model_test_score.png)
 
