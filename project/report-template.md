@@ -57,7 +57,7 @@ for df in (train, test):
     # ensure categorical dtypes
     for col in ['season', 'weather', 'hour', 'dayofweek', 'month', 'year']:
         df[col] = df[col].astype('category')
-
+```
 
 ### How much better did your model preform after adding additional features and why do you think that is?
 TODO: Add your explanation
