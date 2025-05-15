@@ -24,7 +24,7 @@ The shortest (highest) bar belongs to **`WeightedEnsemble_L3`**, making it the t
 | ![Histogram of `count`](img/hist_count.png) | **Target (`count`) is right-skewed** – many hours with small rentals, long tail of busy periods. |
 | ![Scatter-matrix](img/scatter_matrix.png) | **Positive trend:** `temp` / `atemp` ⟶ higher bike demand.<br>**Weak negatives:** `windspeed`, mild for `humidity`. |
 | ![Correlation heat-map](img/corr_matrix.png) | `temp`, `atemp`, `hour_sin/cos`, `rush_hour` show strongest (linear) association with `count`. Almost no multicollinearity issues except `temp` ≃ `atemp`. |
-| ![Histogram of `workingday`](docs/img/hist_workingday.png) | Binary flags (`workingday`, `holiday`) are **highly imbalanced** → treat as categorical. |
+| ![Histogram of `workingday`](img/hist_workingday.png) | Binary flags (`workingday`, `holiday`) are **highly imbalanced** → treat as categorical. |
 
 ### 2 · Additional features created  
 | New column | Type | Why it helps |
