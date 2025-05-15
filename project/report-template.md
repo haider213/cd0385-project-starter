@@ -9,8 +9,9 @@ The output needed to have only two columns, the datetime column and the count co
 ## AutoGluon Leaderboard – Initial Training Run
 
 ![Validation-score bar chart for all trained models](img/predictor_leaderboard.png)
+![Validation-score bar chart for all trained models_with engineered_features](img/predictor_leaderboard_feature_engineered.png)
 
-The shortest (highest) bar belongs to **`WeightedEnsemble_L3`**, making it the top-ranked model on the validation set.
+The shortest (highest) bar belongs to **`WeightedEnsemble_L3`**, making it the top-ranked model on the validation set. This is true for both original and engineered features.
 
 
 ## Exploratory data analysis and feature creation
