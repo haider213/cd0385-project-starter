@@ -1,12 +1,12 @@
 # Report: Predict Bike Sharing Demand with AutoGluon Solution
-#### NAME HERE
+#### Haider Ali
 
-## Initial Training
+# Initial Training
 ### What did you realize when you tried to submit your predictions? What changes were needed to the output of the predictor to submit your results?
-TODO: Add your explanation
+The output needed to have only two columns, the datetime column and the count column. Similarly, when saving the file, the index should be set to `False`. 
 
 ### What was the top ranked model that performed?
-TODO: Add your explanation
+The top ranked model that performed the best after the initial training was the T
 
 ## Exploratory data analysis and feature creation
 ### What did the exploratory analysis find and how did you add additional features?
