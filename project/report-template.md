@@ -6,7 +6,12 @@
 The output needed to have only two columns, the datetime column and the count column. Similarly, when saving the file, the index should be set to `False`. 
 
 ### What was the top ranked model that performed?
-The top ranked model that performed the best after the initial training was the T
+## AutoGluon Leaderboard – Initial Training Run
+
+![Validation-score bar chart for all trained models](project/img/predictor_leaderboard.svg)
+
+The shortest (highest) bar belongs to **`WeightedEnsemble_L3`**, making it the top-ranked model on the validation set.
+
 
 ## Exploratory data analysis and feature creation
 ### What did the exploratory analysis find and how did you add additional features?
