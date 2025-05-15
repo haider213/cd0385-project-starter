@@ -137,4 +137,54 @@ These steps should yield incremental gains and make the solution more production
 ![model_test_score.png](img/model_test_score.png)
 
 ## Summary
-TODO: Add your explanation
+# Bike-Sharing Demand – AutoML Project Summary
+
+**Objective**  
+Predict the number of bicycle rentals (`count`) for every hour in the Bike-Sharing Demand dataset and minimise Kaggle’s evaluation metric (RMSE).
+
+---
+
+## Workflow Overview
+
+| Phase | Key Actions | Outcome |
+|-------|-------------|---------|
+| **1. Baseline** | • Dropped columns not present in the test set (`casual`, `registered`).<br>• Trained AutoGluon with default settings. | **RMSE = 1.77339** |
+| **2. Exploratory Data Analysis** | • Histograms, scatter-matrix, correlation heat-map.<br>• Found strong seasonality and temp-demand trend; weak wind/humidity signals. | Feature hypotheses for next phase |
+| **3. Feature Engineering** | • Decomposed `datetime` → `hour`, `dayofweek`, `month`, `year`.<br>• Added flags `is_weekend`, `rush_hour`.<br>• Cyclical encodings `hour_sin`, `hour_cos`.<br>• Converted `season`, `weather` to `category`. | **RMSE = 0.65357** (-63 %) |
+| **4. Hyper-parameter Optimisation** | • 40-trial random search (1 h) over LightGBM, XGBoost, small MLP.<br>• Best LightGBM: `num_leaves=64`, `learning_rate=0.03`.<br>• Ensemble weighting via AutoGluon’s Level-3 stack. | **RMSE = 0.46981** (-28 % vs engineered) |
+| **5. Submission & Reporting** | • Saved predictions → Kaggle CSVs.<br>• Created plots (`hist_*`, `corr_matrix`, `scatter_matrix`, line charts of scores).<br>• Generated markdown tables & summary for GitHub. | Full reproducible notebook & artefacts |
+
+---
+
+## Performance Milestones
+
+| Stage | Kaggle Public RMSE ↓ | Relative Improvement |
+|-------|---------------------:|----------------------|
+| Baseline | 1.77339 | — |
+| + Features | 0.65357 | **-63 %** |
+| + HPO | **0.46981** | **-73 % vs baseline** |
+
+---
+
+## Insights
+
+* **Seasonality is king:** demand spikes sharply during morning/evening rush hours and drops on weekends—captured via `hour`, `rush_hour`, `is_weekend`.
+* **Temperature matters:** warmer hours drive higher rentals; LightGBM exploited this with deeper leaves.
+* **Categorical handling:** casting `season` and `weather` from ints to categories prevented false ordinal assumptions.
+* **Ensembling + tuning:** diversified tree & NN variants reduced correlated errors; HPO shaved an extra 0.18 RMSE.
+
+---
+
+## Next Steps (if more time)
+
+1. **External weather augmentation** – add precipitation, wind-gust, and visibility to refine bad-weather forecasts.  
+2. **Temporal cross-validation** – rolling windows to mimic real-world deployment across seasons.  
+3. **Longer Bayesian HPO** – 200-300 trials for LightGBM/XGB, possibly CatBoost.  
+4. **Outlier treatment** – correct zero wind-speed artefacts and extreme rental spikes.  
+5. **Model distillation & deployment** – compress ensemble into a single GBM for faster inference on edge devices.
+
+---
+
+**Tools & Libraries**  
+Python · Pandas · Matplotlib · AutoGluon Tabular · scikit-learn · Kaggle API
+
