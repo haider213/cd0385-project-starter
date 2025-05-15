@@ -118,11 +118,11 @@ These steps should yield incremental gains and make the solution more production
 
 
 ### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
-| model                                             | hpo 1                  | hpo 2             | hpo 3                  | Kaggle Score ↓ |
+| model                                             | learning_rate          | num_leaves        | min_data_in_leaf       | Kaggle Score ↓ |
 | ------------------------------------------------- | ---------------------- | ----------------- | ---------------------- | ----------------- |
-| **initial**<br>(baseline, no feature engineering) | —                      | —                 | —                      | **1.77339**         |
-| **add\_features**<br>(calendar & cyclic features) | —                      | —                 | —                      | ** 0.6535**         |
-| **hpo**<br>(random search, 20 trials)             | `learning_rate = 0.03` | `num_leaves ≈ 83` | `min_data_in_leaf = 5` | **0.46981**         |
+| **initial**<br>(baseline, no feature engineering) | 0.05                   | 31                | 20                    | **1.77339**         |
+| **add\_features**<br>(calendar & cyclic features) | 0.05                   | 31                | 20                    | ** 0.6535**         |
+| **hpo**<br>(random search, 20 trials)             | 0.03                   |83                 | 5                      | **0.46981**         |
 
 
 ### Create a line plot showing the top model score for the three (or more) training runs during the project.
