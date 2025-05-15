@@ -37,7 +37,7 @@ The shortest (highest) bar belongs to **`WeightedEnsemble_L3`**, making it the t
 
 ### 3 · Implementation snippet
 ```python
-for df in (train, test):
+for df in (train_data, test):
     # decomposed datetime
     df['hour']       = df['datetime'].dt.hour.astype('uint8')
     df['dayofweek']  = df['datetime'].dt.dayof_week.astype('uint8')
