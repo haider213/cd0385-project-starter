@@ -8,7 +8,7 @@ The output needed to have only two columns, the datetime column and the count co
 ### What was the top ranked model that performed?
 ## AutoGluon Leaderboard – Initial Training Run
 
-![Validation-score bar chart for all trained models](img/predictor_leaderboard.svg)
+![Validation-score bar chart for all trained models](img/predictor_leaderboard.png)
 
 The shortest (highest) bar belongs to **`WeightedEnsemble_L3`**, making it the top-ranked model on the validation set.
 
