@@ -60,7 +60,22 @@ for df in (train_data, test):
 ```
 
 ### How much better did your model preform after adding additional features and why do you think that is?
-TODO: Add your explanation
+
+| Run | Kaggle RMSE ↓ | Absolute gain | Relative gain |
+|-----|--------------:|--------------:|---------------|
+| **Baseline** (no extra features) | **1.77339** | — | — |
+| **+ Engineered features** | **0.65357** | **−1.11982** | **≈ 63 % lower RMSE** |
+
+Adding the date-time–derived columns (`hour`, `dayofweek`, `month`, `year`), behavioural flags (`is_weekend`, `rush_hour`), cyclical encodings (`hour_sin`, `hour_cos`) and correctly typed categoricals (`season`, `weather`) cut the prediction error by nearly **two-thirds**.
+
+**Why the big jump?**
+
+* **Seasonality exposed** – Separate hour / day / month signals let the model latch onto the daily commute spikes, weekend dips, and monthly weather trends that were hidden inside the raw timestamp.
+* **Cleaner categorical handling** – Converting `season` and `weather` from integers to categories prevented the model from treating “3 > 2 > 1” as a numeric progression.
+* **Rush-hour flag** – A single binary feature gave tree models an easy split for the morning and evening peaks, removing a lot of residual error.
+* **Cyclical features** – `hour_sin` and `hour_cos` told linear / neural learners that 23:00 and 00:00 are neighbours, smoothing predictions around midnight.
+
+Together, these engineered signals supplied the model with domain knowledge that the original 11 Kaggle columns lacked, leading to the **0.65357 RMSE** score you see on the leaderboard.
 
 ## Hyper parameter tuning
 ### How much better did your model preform after trying different hyper parameters?
